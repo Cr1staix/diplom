@@ -12,7 +12,7 @@ import ru.top.diplom.model.User;
 @Mapper(componentModel = "spring")
 public interface UserMapper {
 
-    User touUser(UserCreateDTO userCreateDTO);
+    User toUser(UserCreateDTO userCreateDTO);
 
     UserResponseDTO toResponseUserDTO(User user);
 
