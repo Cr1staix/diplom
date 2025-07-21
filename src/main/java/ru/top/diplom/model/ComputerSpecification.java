@@ -42,6 +42,7 @@ public class ComputerSpecification {
     private String ram;
 
     @OneToMany(mappedBy = "computerSpecification", cascade = CascadeType.ALL, orphanRemoval = true)
+    @ToString.Exclude
     private List<Computer> computers;
 
 }
