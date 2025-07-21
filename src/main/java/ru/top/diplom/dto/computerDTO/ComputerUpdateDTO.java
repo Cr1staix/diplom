@@ -17,5 +17,5 @@ import java.util.UUID;
 public class ComputerUpdateDTO {
     private UUID id;
     private String name;
-    private Long spec_id;
+    private Long specId;
 }

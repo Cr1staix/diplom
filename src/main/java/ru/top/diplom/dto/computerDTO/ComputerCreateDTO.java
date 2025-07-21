@@ -14,6 +14,6 @@ import lombok.ToString;
 @ToString
 @Builder
 public class ComputerCreateDTO {
-    private Long spec_id;
+    private Long specId;
     private String name;
 }

@@ -25,6 +25,7 @@ public class ComputerResponseDTO {
     @AllArgsConstructor
     @Setter
     @NoArgsConstructor
+    @Builder
     public static class ComputerSpecificationDTO{
         private String monitor;
         private String keyboard;
