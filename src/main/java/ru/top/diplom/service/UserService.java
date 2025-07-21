@@ -2,11 +2,12 @@ package ru.top.diplom.service;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import ru.top.diplom.dto.userDTO.UserCreateDTO;
 import ru.top.diplom.dto.userDTO.UserResponseDTO;
 import ru.top.diplom.dto.userDTO.UserUpdateDTO;
-import ru.top.diplom.exception.UserAllreadyExistsException;
-import ru.top.diplom.exception.UserNotFoundException;
+import ru.top.diplom.exception.user.UserAllreadyExistsException;
+import ru.top.diplom.exception.user.UserNotFoundException;
 import ru.top.diplom.mapper.UserMapper;
 import ru.top.diplom.model.User;
 import ru.top.diplom.repository.UserRepository;
@@ -45,6 +46,7 @@ public class UserService {
         return userMapper.toResponseUserDTO(user);
     }
 
+    @Transactional
     public UserResponseDTO update(UserUpdateDTO userUpdateDTO){
 
         User user = userRepository.findById(userUpdateDTO.getId())
