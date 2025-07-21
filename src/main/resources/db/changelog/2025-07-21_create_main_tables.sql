@@ -37,7 +37,7 @@ CREATE TABLE computer_club
 CREATE TABLE computer
 (
     id               UUID PRIMARY KEY DEFAULT gen_random_uuid(),
-    name             INT,
+    name             VARCHAR(50) NOT NULL ,
     spec_id          BIGINT,
     status           VARCHAR(50),
     computer_club_id BIGINT,
