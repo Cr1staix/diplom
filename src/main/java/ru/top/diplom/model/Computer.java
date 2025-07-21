@@ -32,7 +32,7 @@ public class Computer {
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
 
-    private Integer name;
+    private String name;
 
     @ManyToOne
     @JoinColumn(name = "spec_id", nullable = false)
