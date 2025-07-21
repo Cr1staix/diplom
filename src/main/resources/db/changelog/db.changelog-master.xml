@@ -5,5 +5,5 @@
         xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
         http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.8.xsd">
 
-
+<include file="db/changelog/2025-07-21_create_main_tables.sql"/>
 </databaseChangeLog>
