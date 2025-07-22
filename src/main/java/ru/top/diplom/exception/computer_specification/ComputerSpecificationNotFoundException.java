@@ -1,4 +1,4 @@
-package ru.top.diplom.exception.computerSpecification;
+package ru.top.diplom.exception.computer_specification;
 
 public class ComputerSpecificationNotFoundException extends RuntimeException {
 

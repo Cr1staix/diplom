@@ -8,7 +8,7 @@ import ru.top.diplom.dto.computerDTO.ComputerCreateDTO;
 import ru.top.diplom.dto.computerDTO.ComputerResponseDTO;
 import ru.top.diplom.dto.computerDTO.ComputerUpdateDTO;
 import ru.top.diplom.exception.computer.ComputerNotFoundException;
-import ru.top.diplom.exception.computerSpecification.ComputerSpecificationNotFoundException;
+import ru.top.diplom.exception.computer_specification.ComputerSpecificationNotFoundException;
 import ru.top.diplom.mapper.ComputerMapper;
 import ru.top.diplom.model.Computer;
 import ru.top.diplom.model.ComputerSpecification;
