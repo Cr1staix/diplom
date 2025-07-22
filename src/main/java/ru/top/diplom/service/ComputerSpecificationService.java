@@ -6,7 +6,7 @@ import org.springframework.transaction.annotation.Transactional;
 import ru.top.diplom.dto.computerSpecificationDTO.ComputerSpecificationCreateDTO;
 import ru.top.diplom.dto.computerSpecificationDTO.ComputerSpecificationResponseDTO;
 import ru.top.diplom.dto.computerSpecificationDTO.ComputerSpecificationUpdateDTO;
-import ru.top.diplom.exception.computerSpecification.ComputerSpecificationNotFoundException;
+import ru.top.diplom.exception.computer_specification.ComputerSpecificationNotFoundException;
 import ru.top.diplom.mapper.ComputerSpecificationMapper;
 import ru.top.diplom.model.ComputerSpecification;
 import ru.top.diplom.repository.ComputerSpecificationRepository;
