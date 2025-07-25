@@ -6,6 +6,8 @@ import org.springframework.transaction.annotation.Transactional;
 import ru.top.diplom.dto.userDTO.UserCreateDTO;
 import ru.top.diplom.dto.userDTO.UserResponseDTO;
 import ru.top.diplom.dto.userDTO.UserUpdateDTO;
+import ru.top.diplom.enums.UserRole;
+import ru.top.diplom.enums.UserStatus;
 import ru.top.diplom.exception.user.UserAllreadyExistsException;
 import ru.top.diplom.exception.user.UserNotFoundException;
 import ru.top.diplom.mapper.UserMapper;
@@ -27,6 +29,9 @@ public class UserService {
         }
 
         User user = userMapper.toUser(userCreateDTO);
+
+        user.setRole(UserRole.USER);
+        user.setStatus(UserStatus.BRONZE);
 
         return userMapper.toResponseUserDTO(userRepository.save(user));
     }

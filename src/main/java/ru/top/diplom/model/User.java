@@ -1,6 +1,8 @@
 package ru.top.diplom.model;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -16,6 +18,9 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 import org.hibernate.annotations.CreationTimestamp;
+import ru.top.diplom.enums.UserRole;
+import ru.top.diplom.enums.UserStatus;
+
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
@@ -40,6 +45,12 @@ public class User {
     private String lastName;
     private LocalDate dateOfBirth;
     private String phone;
+
+    @Enumerated(EnumType.STRING)
+    private UserRole role;
+
+    @Enumerated(EnumType.STRING)
+    private UserStatus status;
 
     @CreationTimestamp
     private LocalDateTime addedAt;
