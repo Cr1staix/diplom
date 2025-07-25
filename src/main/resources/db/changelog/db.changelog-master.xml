@@ -6,4 +6,5 @@
         http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.8.xsd">
 
 <include file="db/changelog/2025-07-21_create_main_tables.sql"/>
+<include file="db/changelog/2025_07_24_alter_table_users_add_column.sql"/>
 </databaseChangeLog>
