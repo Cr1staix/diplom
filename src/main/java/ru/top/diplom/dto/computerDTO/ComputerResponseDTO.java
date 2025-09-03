@@ -1,5 +1,6 @@
 package ru.top.diplom.dto.computerDTO;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -8,6 +9,7 @@ import lombok.Setter;
 import lombok.ToString;
 
 
+import java.time.LocalDateTime;
 import java.util.UUID;
 
 @AllArgsConstructor
@@ -34,5 +36,11 @@ public class ComputerResponseDTO {
         private String cpu;
         private String gpu;
         private String ram;
+
+        @JsonFormat(pattern = "yyyy-MM-dd HH:mm")
+        private LocalDateTime addedAt;
+
+        @JsonFormat(pattern = "yyyy-MM-dd HH:mm")
+        private LocalDateTime updatedAt;
     }
 }

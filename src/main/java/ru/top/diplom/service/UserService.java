@@ -1,11 +1,15 @@
 package ru.top.diplom.service;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.top.diplom.dto.userDTO.SignUpRequest;
+import ru.top.diplom.dto.userDTO.UserFilterDTO;
 import ru.top.diplom.dto.userDTO.UserResponseDTO;
 import ru.top.diplom.dto.userDTO.UserUpdateDTO;
 import ru.top.diplom.enums.UserRole;
@@ -15,8 +19,7 @@ import ru.top.diplom.exception.user.UserNotFoundException;
 import ru.top.diplom.mapper.UserMapper;
 import ru.top.diplom.model.User;
 import ru.top.diplom.repository.UserRepository;
-
-import java.util.List;
+import ru.top.diplom.specification.UserSpecificationCriteriaApi;
 
 @Service
 @RequiredArgsConstructor
@@ -38,11 +41,11 @@ public class UserService {
         return userRepository.save(user);
     }
 
-    public List<UserResponseDTO> findAll () {
+    public Page<UserResponseDTO> findAll (UserFilterDTO filter, Pageable pageable) {
 
-        return userRepository.findAll().stream()
-                .map(userMapper::toResponseUserDTO)
-                .toList();
+        Specification<User> spec = UserSpecificationCriteriaApi.createSpecification(filter);
+
+        return userRepository.findAll(spec, pageable).map(userMapper::toResponseUserDTO);
     }
 
     public UserResponseDTO findById (Long id) {

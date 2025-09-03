@@ -1,8 +1,13 @@
 package ru.top.diplom.controller;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -10,11 +15,11 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import ru.top.diplom.dto.ComputerClubDTO.ComputerClubCreateDTO;
+import ru.top.diplom.dto.ComputerClubDTO.ComputerClubFilterDTO;
 import ru.top.diplom.dto.ComputerClubDTO.ComputerClubResponseDTO;
 import ru.top.diplom.dto.ComputerClubDTO.ComputerClubUpdateDTO;
 import ru.top.diplom.service.ComputerClubService;
 
-import java.util.List;
 
 @RestController
 @RequestMapping("api/club")
@@ -30,9 +35,11 @@ public class ComputerClubController {
     }
 
     @GetMapping
-    public ResponseEntity<List<ComputerClubResponseDTO>> findAll(){
+    public ResponseEntity<Page<ComputerClubResponseDTO>> findAll(@ModelAttribute ComputerClubFilterDTO filter,
+                                                                 @PageableDefault(size = 5, sort = "id",
+                                                                         direction = Sort.Direction.ASC) Pageable pageable){
 
-        return ResponseEntity.ok(computerClubService.findAll());
+        return ResponseEntity.ok(computerClubService.findAll(filter, pageable));
     }
 
     @GetMapping(path = "{id}")

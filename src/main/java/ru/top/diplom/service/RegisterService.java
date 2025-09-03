@@ -18,13 +18,12 @@ public class RegisterService {
     private final UserRepository userRepository;
     private final ComputerClubRepository computerClubRepository;
     private final BalanceService balanceService;
+    private final CurrentUserService currentUserService;
 
     @Transactional
     public void registerUserToClub(RegisterDTO registerDTO){
-        //TODO Изменить ДТО, нам не нужно принимать id usera, он будет поднматься из контекста спринга!
 
-        User user = userRepository.findById(registerDTO.getUserId())
-                .orElseThrow(() -> new  UserNotFoundException(registerDTO.getUserId()));
+        User user = currentUserService.findUser();
 
         ComputerClub computerClub = computerClubRepository.findById(registerDTO.getClubId())
                 .orElseThrow(() -> new ComputerClubNotFoundException(registerDTO.getClubId()));

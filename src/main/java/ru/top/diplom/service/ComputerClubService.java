@@ -1,9 +1,13 @@
 package ru.top.diplom.service;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.top.diplom.dto.ComputerClubDTO.ComputerClubCreateDTO;
+import ru.top.diplom.dto.ComputerClubDTO.ComputerClubFilterDTO;
 import ru.top.diplom.dto.ComputerClubDTO.ComputerClubResponseDTO;
 import ru.top.diplom.dto.ComputerClubDTO.ComputerClubUpdateDTO;
 import ru.top.diplom.exception.computer_club.ComputerClubAllreadyExistsException;
@@ -11,7 +15,7 @@ import ru.top.diplom.exception.computer_club.ComputerClubNotFoundException;
 import ru.top.diplom.mapper.ComputerClubMapper;
 import ru.top.diplom.model.ComputerClub;
 import ru.top.diplom.repository.ComputerClubRepository;
-import java.util.List;
+import ru.top.diplom.specification.ComputerClubSpecificationCriteriaApi;
 
 
 @Service
@@ -35,11 +39,11 @@ public class ComputerClubService {
         return computerClubMapper.toComputerClubResponseDTO(computerClub);
     }
 
-    public List<ComputerClubResponseDTO> findAll(){
+    public Page<ComputerClubResponseDTO> findAll(ComputerClubFilterDTO filter, Pageable pageable){
 
-      return   computerClubRepository.findAll().stream()
-                .map(computerClubMapper::toComputerClubResponseDTO)
-                .toList();
+        Specification<ComputerClub> spec = ComputerClubSpecificationCriteriaApi.createSpecification(filter);
+
+       return computerClubRepository.findAll(spec, pageable).map(computerClubMapper::toComputerClubResponseDTO);
     }
 
     public ComputerClubResponseDTO findById(Long id){

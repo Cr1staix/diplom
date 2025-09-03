@@ -2,9 +2,13 @@ package ru.top.diplom.service;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.top.diplom.dto.computerDTO.ComputerCreateDTO;
+import ru.top.diplom.dto.computerDTO.ComputerFilterDTO;
 import ru.top.diplom.dto.computerDTO.ComputerResponseDTO;
 import ru.top.diplom.dto.computerDTO.ComputerUpdateDTO;
 import ru.top.diplom.exception.computer.ComputerNotFoundException;
@@ -14,6 +18,8 @@ import ru.top.diplom.model.Computer;
 import ru.top.diplom.model.ComputerSpecification;
 import ru.top.diplom.repository.ComputerRepository;
 import ru.top.diplom.repository.ComputerSpecificationRepository;
+import ru.top.diplom.specification.ComputerSpecificationCriteriaApi;
+
 import java.util.List;
 import java.util.UUID;
 
@@ -39,11 +45,11 @@ public class ComputerService {
         return computerMapper.toComputerResponseDTO(computerRepository.save(computer));
     }
 
-    public List<ComputerResponseDTO> findAll(){
+    public Page<ComputerResponseDTO> findAll(ComputerFilterDTO filter, Pageable pageable){
 
-        return computerRepository.findAll().stream()
-                .map(computerMapper::toComputerResponseDTO)
-                .toList();
+        Specification<Computer> spec = ComputerSpecificationCriteriaApi.createSpecification(filter);
+
+       return computerRepository.findAll(spec, pageable).map(computerMapper::toComputerResponseDTO);
     }
 
     public ComputerResponseDTO findById(UUID id){

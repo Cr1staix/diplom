@@ -16,8 +16,10 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
+import org.hibernate.annotations.CreationTimestamp;
 import ru.top.diplom.enums.ComputerStatus;
 
+import java.time.LocalDateTime;
 import java.util.UUID;
 
 @AllArgsConstructor
@@ -39,6 +41,12 @@ public class Computer {
 
     @Enumerated(EnumType.STRING)
     private ComputerStatus computerStatus;
+
+    @CreationTimestamp
+    private LocalDateTime addedAt;
+
+    @CreationTimestamp
+    private LocalDateTime updatedAt;
 
     @ManyToOne
     @JoinColumn(name = "spec_id", nullable = false)
