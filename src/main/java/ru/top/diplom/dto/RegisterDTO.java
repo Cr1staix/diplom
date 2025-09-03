@@ -9,6 +9,5 @@ import lombok.Setter;
 @Builder
 public class RegisterDTO {
 
-    private Long userId;
     private Long clubId;
 }

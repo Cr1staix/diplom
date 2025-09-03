@@ -1,8 +1,12 @@
 package ru.top.diplom.service;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import ru.top.diplom.dto.computerSpecificationDTO.ComputerSpecFilterDTO;
 import ru.top.diplom.dto.computerSpecificationDTO.ComputerSpecificationCreateDTO;
 import ru.top.diplom.dto.computerSpecificationDTO.ComputerSpecificationResponseDTO;
 import ru.top.diplom.dto.computerSpecificationDTO.ComputerSpecificationUpdateDTO;
@@ -10,8 +14,7 @@ import ru.top.diplom.exception.computer_specification.ComputerSpecificationNotFo
 import ru.top.diplom.mapper.ComputerSpecificationMapper;
 import ru.top.diplom.model.ComputerSpecification;
 import ru.top.diplom.repository.ComputerSpecificationRepository;
-
-import java.util.List;
+import ru.top.diplom.specification.ComputerSpecSpecificationCriteriaApi;
 
 @Service
 @RequiredArgsConstructor
@@ -27,11 +30,11 @@ public class ComputerSpecificationService {
         return computerSpecificationMapper.toComputerSpecificationResponseDTO(computerSpecificationRepository.save(computerSpecification));
     }
 
-    public List<ComputerSpecificationResponseDTO> findAll(){
+    public Page<ComputerSpecificationResponseDTO> findAll(ComputerSpecFilterDTO filter, Pageable pageable){
 
-        return computerSpecificationRepository.findAll().stream()
-                .map(computerSpecificationMapper::toComputerSpecificationResponseDTO)
-                .toList();
+        Specification<ComputerSpecification> spec = ComputerSpecSpecificationCriteriaApi.createSpecification(filter);
+
+        return computerSpecificationRepository.findAll(spec, pageable).map(computerSpecificationMapper::toComputerSpecificationResponseDTO);
     }
 
     public ComputerSpecificationResponseDTO findById(Long id){
