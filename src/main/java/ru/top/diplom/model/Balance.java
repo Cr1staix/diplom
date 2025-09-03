@@ -28,7 +28,8 @@ public class Balance {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private BigDecimal money;
+    @Builder.Default
+    private BigDecimal money = BigDecimal.valueOf(0);
 
     @OneToOne
     private User user;
