@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import ru.top.diplom.dto.userDTO.SignUpRequest;
-import ru.top.diplom.dto.userDTO.UserCreateDTO;
 import ru.top.diplom.dto.userDTO.UserResponseDTO;
 import ru.top.diplom.dto.userDTO.UserUpdateDTO;
 import ru.top.diplom.service.UserService;

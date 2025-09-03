@@ -6,7 +6,6 @@ import org.mapstruct.MappingTarget;
 import org.mapstruct.NullValuePropertyMappingStrategy;
 import ru.top.diplom.dto.userDTO.CurrentUserUpdateDTO;
 import ru.top.diplom.dto.userDTO.SignUpRequest;
-import ru.top.diplom.dto.userDTO.UserCreateDTO;
 import ru.top.diplom.dto.userDTO.UserResponseDTO;
 import ru.top.diplom.dto.userDTO.UserUpdateDTO;
 import ru.top.diplom.model.User;

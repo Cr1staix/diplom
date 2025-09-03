@@ -6,7 +6,6 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.top.diplom.dto.userDTO.SignUpRequest;
-import ru.top.diplom.dto.userDTO.UserCreateDTO;
 import ru.top.diplom.dto.userDTO.UserResponseDTO;
 import ru.top.diplom.dto.userDTO.UserUpdateDTO;
 import ru.top.diplom.enums.UserRole;
