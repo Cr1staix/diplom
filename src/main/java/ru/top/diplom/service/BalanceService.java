@@ -7,7 +7,6 @@ import ru.top.diplom.model.ComputerClub;
 import ru.top.diplom.model.User;
 import ru.top.diplom.repository.BalanceRepository;
 
-import java.math.BigDecimal;
 
 @Service
 @RequiredArgsConstructor
