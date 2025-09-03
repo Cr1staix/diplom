@@ -7,6 +7,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.OneToMany;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -51,4 +52,7 @@ public class ComputerClub {
     @OneToMany
     @JoinColumn(name = "club_id")
     private List<Computer> computers;
+
+    @OneToOne
+    private Balance balance;
 }
