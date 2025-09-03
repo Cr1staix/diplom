@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+
+    <!-- Путь к логам, берётся из переменной окружения LOG_PATH или по умолчанию /logs -->
+    <property name="LOG_PATH" value="${LOG_PATH:-/logs}" />
+
+    <!-- Аппендер для консоли -->
+    <appender name="ConsoleAppender" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>%d{yyyy-MM-dd HH:mm:ss} [%thread] %highlight(%-5level) %cyan(%logger{36}) - %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <!-- Аппендер (настройщик) отвечает для записи логов в один файл -->
+    <appender name="LogsAppender" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${LOG_PATH}/diplom.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+            <fileNamePattern>${LOG_PATH}/zone_control.%d{yyyy-MM-dd}.%i.log</fileNamePattern>
+            <maxFileSize>10MB</maxFileSize>  <!--Тут задаем максимальный размер файла-->
+            <maxHistory>7</maxHistory> <!-- тут задается кол-во дней, которое файл хранится -->
+            <totalSizeCap>100MB</totalSizeCap> <!--тут задаем параметр, если общий вес станет больше, то файлу начнут удаляться-->
+        </rollingPolicy>
+        <encoder>
+            <pattern>%d{yyyy-MM-dd HH:mm:ss} %-5level %logger{36} - %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <!-- Настройка логов для Spring и Hibernate -->
+    <logger name="org.springframework" level="info"/>
+    <logger name="org.hibernate" level="info"/>
+
+    <!-- Логирование основного кода проекта -->
+    <logger name="ru.top.diplom" level="debug" additivity="false">
+        <appender-ref ref="ConsoleAppender"/>
+        <appender-ref ref="LogsAppender"/>
+    </logger>
+
+    <!-- Корневой логгер  -->
+    <root level="info">
+        <appender-ref ref="ConsoleAppender"/>
+        <appender-ref ref="LogsAppender"/>
+    </root>
+
+</configuration>
