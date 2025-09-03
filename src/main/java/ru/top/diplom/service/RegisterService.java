@@ -21,6 +21,7 @@ public class RegisterService {
 
     @Transactional
     public void registerUserToClub(RegisterDTO registerDTO){
+        //TODO Изменить ДТО, нам не нужно принимать id usera, он будет поднматься из контекста спринга!
 
         User user = userRepository.findById(registerDTO.getUserId())
                 .orElseThrow(() -> new  UserNotFoundException(registerDTO.getUserId()));
