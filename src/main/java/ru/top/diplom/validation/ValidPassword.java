@@ -2,8 +2,6 @@ package ru.top.diplom.validation;
 
 import jakarta.validation.Constraint;
 import jakarta.validation.Payload;
-import ru.top.diplom.validation.PasswordValidator;
-
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
