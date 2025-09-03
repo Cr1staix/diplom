@@ -16,8 +16,6 @@ import ru.top.diplom.model.ComputerSpecification;
 import ru.top.diplom.repository.ComputerSpecificationRepository;
 import ru.top.diplom.specification.ComputerSpecSpecificationCriteriaApi;
 
-import java.util.List;
-
 @Service
 @RequiredArgsConstructor
 public class ComputerSpecificationService {

@@ -19,8 +19,6 @@ import ru.top.diplom.model.ComputerSpecification;
 import ru.top.diplom.repository.ComputerRepository;
 import ru.top.diplom.repository.ComputerSpecificationRepository;
 import ru.top.diplom.specification.ComputerSpecificationCriteriaApi;
-
-import java.util.List;
 import java.util.UUID;
 
 @Service

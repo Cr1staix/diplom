@@ -5,7 +5,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.top.diplom.dto.RegisterDTO;
 import ru.top.diplom.exception.computer_club.ComputerClubNotFoundException;
-import ru.top.diplom.exception.user.UserNotFoundException;
 import ru.top.diplom.model.ComputerClub;
 import ru.top.diplom.model.User;
 import ru.top.diplom.repository.ComputerClubRepository;
