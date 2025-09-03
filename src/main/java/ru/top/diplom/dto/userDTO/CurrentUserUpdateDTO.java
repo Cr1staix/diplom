@@ -6,6 +6,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
+
 import java.time.LocalDate;
 
 @AllArgsConstructor
@@ -14,8 +15,10 @@ import java.time.LocalDate;
 @Setter
 @ToString
 @Builder
-public class UserCreateDTO {
+public class CurrentUserUpdateDTO {
+
+    private String firstName;
+    private String lastName;
     private LocalDate dateOfBirth;
     private String phone;
-    private String password;
 }
