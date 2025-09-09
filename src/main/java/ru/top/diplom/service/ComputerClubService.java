@@ -10,10 +10,13 @@ import ru.top.diplom.dto.ComputerClubDTO.ComputerClubCreateDTO;
 import ru.top.diplom.dto.ComputerClubDTO.ComputerClubFilterDTO;
 import ru.top.diplom.dto.ComputerClubDTO.ComputerClubResponseDTO;
 import ru.top.diplom.dto.ComputerClubDTO.ComputerClubUpdateDTO;
+import ru.top.diplom.exception.city.CityNotFoundException;
 import ru.top.diplom.exception.computer_club.ComputerClubAllreadyExistsException;
 import ru.top.diplom.exception.computer_club.ComputerClubNotFoundException;
 import ru.top.diplom.mapper.ComputerClubMapper;
+import ru.top.diplom.model.City;
 import ru.top.diplom.model.ComputerClub;
+import ru.top.diplom.repository.CityRepository;
 import ru.top.diplom.repository.ComputerClubRepository;
 import ru.top.diplom.specification.ComputerClubSpecificationCriteriaApi;
 
@@ -24,6 +27,7 @@ public class ComputerClubService {
 
     private final ComputerClubRepository computerClubRepository;
     private final ComputerClubMapper computerClubMapper;
+    private final CityRepository cityRepository;
 
     public ComputerClubResponseDTO create (ComputerClubCreateDTO computerClubCreateDTO){
 
@@ -33,6 +37,11 @@ public class ComputerClubService {
         }
 
         ComputerClub computerClub = computerClubMapper.toComputerClub(computerClubCreateDTO);
+
+        City city = cityRepository.findById(computerClubCreateDTO.getCity_id())
+                        .orElseThrow(() -> new CityNotFoundException(computerClubCreateDTO.getCity_id()));
+
+        computerClub.setCity(city);
 
         computerClubRepository.save(computerClub);
 
@@ -77,5 +86,14 @@ public class ComputerClubService {
                 .orElseThrow(() -> new ComputerClubNotFoundException(id));
 
         computerClubRepository.delete(computerClub);
+    }
+
+    public Page<ComputerClubResponseDTO> getAllClubsOnCity(Long cityId, Pageable pageable){
+
+        ComputerClubFilterDTO filterDTO = ComputerClubFilterDTO.builder()
+                .cityId(cityId)
+                .build();
+
+        return findAll(filterDTO, pageable);
     }
 }

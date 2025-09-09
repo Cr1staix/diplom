@@ -1,4 +1,4 @@
-package ru.top.diplom.dto.ComputerClubDTO;
+package ru.top.diplom.dto.cityDTO;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -13,8 +13,8 @@ import lombok.ToString;
 @Setter
 @ToString
 @Builder
-public class ComputerClubCreateDTO {
+public class CityResponseDTO {
+
+    private Long id;
     private String name;
-    private Long city_id;
-    private String address;
 }
