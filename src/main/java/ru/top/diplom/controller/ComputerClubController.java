@@ -29,7 +29,7 @@ public class ComputerClubController {
     private final ComputerClubService computerClubService;
 
     @PostMapping
-    public ResponseEntity<ComputerClubResponseDTO> create(@RequestBody ComputerClubCreateDTO computerClubCreateDTO){
+    public ResponseEntity<ComputerClubResponseDTO> create(@RequestBody ComputerClubCreateDTO computerClubCreateDTO) {
 
         return ResponseEntity.ok(computerClubService.create(computerClubCreateDTO));
     }
@@ -37,27 +37,35 @@ public class ComputerClubController {
     @GetMapping
     public ResponseEntity<Page<ComputerClubResponseDTO>> findAll(@ModelAttribute ComputerClubFilterDTO filter,
                                                                  @PageableDefault(size = 5, sort = "id",
-                                                                         direction = Sort.Direction.ASC) Pageable pageable){
+                                                                         direction = Sort.Direction.ASC) Pageable pageable) {
 
         return ResponseEntity.ok(computerClubService.findAll(filter, pageable));
     }
 
     @GetMapping(path = "{id}")
-    public ResponseEntity<ComputerClubResponseDTO> findById(@PathVariable Long id){
+    public ResponseEntity<ComputerClubResponseDTO> findById(@PathVariable Long id) {
 
         return ResponseEntity.ok(computerClubService.findById(id));
     }
 
     @PutMapping
-    public ResponseEntity<ComputerClubResponseDTO> update (@RequestBody ComputerClubUpdateDTO computerClubUpdateDTO){
+    public ResponseEntity<ComputerClubResponseDTO> update(@RequestBody ComputerClubUpdateDTO computerClubUpdateDTO) {
 
         return ResponseEntity.ok(computerClubService.update(computerClubUpdateDTO));
     }
 
-    public ResponseEntity<String> delete (@PathVariable Long id){
+    public ResponseEntity<String> delete(@PathVariable Long id) {
 
         computerClubService.delete(id);
 
         return ResponseEntity.ok("Компьютерный клуб с id : " + id + " удалён");
+    }
+
+    @GetMapping("/city/{cityId}")
+    public ResponseEntity<Page<ComputerClubResponseDTO>> getAllClubsOnCity(
+            @PathVariable Long cityId,
+            @PageableDefault(size = 5, sort = "name", direction = Sort.Direction.ASC) Pageable pageable) {
+
+        return ResponseEntity.ok(computerClubService.getAllClubsOnCity(cityId, pageable));
     }
 }

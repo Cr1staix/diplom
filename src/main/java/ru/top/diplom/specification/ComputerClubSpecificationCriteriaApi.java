@@ -63,6 +63,12 @@ public class ComputerClubSpecificationCriteriaApi {
                 cb.lessThanOrEqualTo(root.get("balance").get("amount"), amount);
     }
 
+    //Фильтр по id города
+    private static Specification<ComputerClub> hasCityId(Long cityId) {
+        return (root, query, cb) -> cityId == null ? null :
+                cb.equal(root.get("city").get("id"), cityId);
+    }
+
     // Объединение спецификаций
     @SafeVarargs
     private static Specification<ComputerClub> combine(Specification<ComputerClub>... specs) {
@@ -83,7 +89,8 @@ public class ComputerClubSpecificationCriteriaApi {
                 hasUserId(filterDTO.getUserId()),
                 hasComputerId(filterDTO.getComputerId()),
                 hasBalanceGreaterThanOrEqual(filterDTO.getMinBalance()),
-                hasBalanceLessThanOrEqual(filterDTO.getMaxBalance())
+                hasBalanceLessThanOrEqual(filterDTO.getMaxBalance()),
+                hasCityId(filterDTO.getCityId())
         );
     }
 }

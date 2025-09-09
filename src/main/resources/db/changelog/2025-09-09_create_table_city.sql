@@ -1,0 +1,10 @@
+CREATE TABLE city(
+    id BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+    name VARCHAR(50) NOT NULL UNIQUE
+);
+
+ALTER TABLE computer_club
+    ADD COLUMN city_id BIGINT NOT NULL,
+    ADD CONSTRAINT fk_computer_club_city
+    FOREIGN KEY (city_id)
+    REFERENCES city(id);

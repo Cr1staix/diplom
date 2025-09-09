@@ -1,13 +1,16 @@
 package ru.top.diplom.dto.ComputerClubDTO;
 
+import lombok.Builder;
 import lombok.Data;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDateTime;
 
 @Data
+@Builder
 public class ComputerClubFilterDTO {
     private String name;
+    private Long cityId;
     private String address;
     private Long id;
 

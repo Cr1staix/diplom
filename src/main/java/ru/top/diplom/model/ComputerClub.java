@@ -6,6 +6,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToMany;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
@@ -38,6 +39,11 @@ public class ComputerClub {
     private Long id;
 
     private String name;
+
+    @ManyToOne
+    @JoinColumn(name = "city_id")
+    private City city;
+
     private String address;
 
     @CreationTimestamp

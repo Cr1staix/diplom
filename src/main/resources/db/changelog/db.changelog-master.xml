@@ -8,4 +8,16 @@
 <include file="db/changelog/2025-07-21_create_main_tables.sql"/>
 <include file="db/changelog/2025_07_24_alter_table_users_add_column.sql"/>
 <include file="/db/changelog/2025-09-03_alter_table_users_add_column_password.sql"/>
+<include file="/db/changelog/2025-09-09_create_table_city.sql"/>
+
+
+
+
+
+<!--    ТЕСТОВЫЕ ДАННЫЕ-->
+<include file="/db/changelog/insert-test-data-city.sql"/>
+<include file="/db/changelog/insert-test-data-PC-spec.sql"/>
+<include file="/db/changelog/insert-test-data-PC-club.sql"/>
+<include file="/db/changelog/insert-test-data-PC.sql"/>
+<include file="/db/changelog/insert-test-data-user.sql"/>
 </databaseChangeLog>
