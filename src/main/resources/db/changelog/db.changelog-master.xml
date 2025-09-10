@@ -9,6 +9,8 @@
 <include file="db/changelog/2025_07_24_alter_table_users_add_column.sql"/>
 <include file="/db/changelog/2025-09-03_alter_table_users_add_column_password.sql"/>
 <include file="/db/changelog/2025-09-09_create_table_city.sql"/>
+<include file="/db/changelog/2025-09-10_alter_table_computer_add_column_active.sql"/>
+<include file="/db/changelog/2025-09-10_create_table_reservation.sql"/>
 
 
 

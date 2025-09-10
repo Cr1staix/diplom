@@ -12,6 +12,7 @@ import ru.top.diplom.exception.computer.ComputerNotFoundException;
 import ru.top.diplom.exception.computer_club.ComputerClubAllreadyExistsException;
 import ru.top.diplom.exception.computer_club.ComputerClubNotFoundException;
 import ru.top.diplom.exception.computer_specification.ComputerSpecificationNotFoundException;
+import ru.top.diplom.exception.reservation.ReservationAlreadyException;
 import ru.top.diplom.exception.user.UserAllreadyExistsException;
 import ru.top.diplom.exception.user.UserNotFoundException;
 import java.time.LocalDateTime;
@@ -157,6 +158,19 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(CityAlreadyExistsException.class)
     public ResponseEntity<ErrorResponse> handeCityAlreadyExistsException(CityAlreadyExistsException ex){
+
+        ErrorResponse errorResponse = ErrorResponse.builder()
+                .time(LocalDateTime.now())
+                .status(HttpStatus.CONFLICT.value())
+                .error(HttpStatus.CONFLICT.getReasonPhrase())
+                .message(ex.getMessage())
+                .build();
+
+        return new ResponseEntity<>(errorResponse, HttpStatus.CONFLICT);
+    }
+
+    @ExceptionHandler(ReservationAlreadyException.class)
+    public ResponseEntity<ErrorResponse> handeReservationAlreadyExistsException(ReservationAlreadyException ex){
 
         ErrorResponse errorResponse = ErrorResponse.builder()
                 .time(LocalDateTime.now())

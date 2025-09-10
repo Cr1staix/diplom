@@ -21,6 +21,7 @@ import java.util.UUID;
 public class ComputerResponseDTO {
     private UUID id;
     private String name;
+    private Boolean isActive;
     private ComputerSpecificationDTO computerSpecificationDTO;
 
     @Getter
