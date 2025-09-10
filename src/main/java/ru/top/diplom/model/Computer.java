@@ -51,4 +51,9 @@ public class Computer {
     @ManyToOne
     @JoinColumn(name = "spec_id", nullable = false)
     private ComputerSpecification computerSpecification;
+
+    @ManyToOne
+    @JoinColumn(name = "computer_club_id")
+    @ToString.Exclude
+    private ComputerClub computerClub;
 }

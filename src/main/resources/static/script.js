@@ -35,8 +35,8 @@ loginForm.addEventListener("submit", async (e) => {
         if (response.ok) {
             const data = await response.json();
             message.style.color = "green";
-            // тут можно сохранить токен в localStorage
             localStorage.setItem("jwt", data.token);
+            window.location.href = "city.html";
         } else {
             message.style.color = "red";
             message.textContent = "Ошибка входа";
@@ -64,6 +64,7 @@ registerForm.addEventListener("submit", async (e) => {
             const data = await response.json();
             message.style.color = "green";
             localStorage.setItem("jwt", data.token);
+            window.location.href = "city.html";
         } else {
             message.style.color = "red";
             message.textContent = "Ошибка регистрации";

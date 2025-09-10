@@ -18,4 +18,5 @@ public interface ComputerClubMapper {
 
     @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
     void updateComputerClubFromDTO (ComputerClubUpdateDTO computerClubUpdateDTO, @MappingTarget ComputerClub computerClub);
+
 }
