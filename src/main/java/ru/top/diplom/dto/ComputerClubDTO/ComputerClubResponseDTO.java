@@ -6,8 +6,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
-import ru.top.diplom.model.Computer;
-
+import ru.top.diplom.dto.computerDTO.ComputerResponseDTO;
 import java.util.List;
 
 @AllArgsConstructor
@@ -20,5 +19,5 @@ public class ComputerClubResponseDTO {
     private Long id;
     private String name;
     private String address;
-    private List<Computer> computers;
+    private List<ComputerResponseDTO> computers;
 }

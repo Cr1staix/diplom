@@ -1,6 +1,7 @@
 package ru.top.diplom.model;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -55,8 +56,8 @@ public class ComputerClub {
     @ManyToMany(mappedBy = "computerClubs")
     private List<User> users;
 
-    @OneToMany
-    @JoinColumn(name = "club_id")
+    @OneToMany(mappedBy = "computerClub", fetch = FetchType.EAGER)
+    @ToString.Exclude
     private List<Computer> computers;
 
     @OneToOne
