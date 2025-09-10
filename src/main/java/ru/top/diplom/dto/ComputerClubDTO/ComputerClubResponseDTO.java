@@ -7,8 +7,6 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 import ru.top.diplom.dto.computerDTO.ComputerResponseDTO;
-import ru.top.diplom.model.Computer;
-
 import java.util.List;
 
 @AllArgsConstructor
