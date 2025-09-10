@@ -134,3 +134,28 @@ select {
     text-align: center;
     color: white;
 }
+
+.computer {
+    width: 60px;
+    height: 60px;
+    margin: 5px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 5px;
+    cursor: pointer;
+    color: white;
+    font-weight: bold;
+}
+
+.computer.free {
+    background-color: blue;
+}
+
+.computer.busy {
+    background-color: red;
+}
+
+.computer.selected {
+    border: 3px solid yellow;
+}

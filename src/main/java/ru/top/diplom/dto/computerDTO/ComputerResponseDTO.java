@@ -7,6 +7,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
+import ru.top.diplom.dto.reservationDTO.ReservationResponseDTO;
 
 
 import java.time.LocalDateTime;
@@ -21,6 +22,7 @@ import java.util.UUID;
 public class ComputerResponseDTO {
     private UUID id;
     private String name;
+    private Boolean isActive;
     private ComputerSpecificationDTO computerSpecificationDTO;
 
     @Getter

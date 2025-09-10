@@ -5,6 +5,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import ru.top.diplom.dto.cityDTO.CityCreateDTO;
@@ -21,7 +22,7 @@ public class CityController {
     private final CityService cityService;
 
     @PostMapping
-    public ResponseEntity<CityResponseDTO> create (CityCreateDTO cityCreateDTO){
+    public ResponseEntity<CityResponseDTO> create (@RequestBody CityCreateDTO cityCreateDTO){
 
         return ResponseEntity.ok(cityService.create(cityCreateDTO));
     }

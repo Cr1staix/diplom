@@ -44,22 +44,24 @@ function showClub(club) {
         pcDiv.classList.add("computer");
         pcDiv.textContent = pc.name;
 
+        // Красим занятые
+        if (pc.isActive) {
+            pcDiv.classList.add("busy");
+        }
+
         pcDiv.addEventListener("click", () => {
             document.querySelectorAll(".computer").forEach(c => c.classList.remove("selected"));
             pcDiv.classList.add("selected");
 
-            // Если DTO уже есть, показываем сразу
             if (pc.computerSpecificationDTO) {
                 showComputerSpec(pc);
             } else {
-                // Иначе делаем fetch на конкретный ПК
                 fetch(`http://localhost:8080/api/pc/${pc.id}`, {
                     method: "GET",
                     headers: {
                         "Authorization": "Bearer " + jwt,
                         "Content-Type": "application/json"
-                    },
-                    credentials: "include"
+                    }
                 })
                     .then(res => res.ok ? res.json() : Promise.reject("Ошибка " + res.status))
                     .then(fullPc => showComputerSpec(fullPc))
@@ -81,7 +83,7 @@ function showComputerSpec(pc) {
         return;
     }
 
-    computerInfo.innerHTML = `
+    let content = `
         <h3>Компьютер ${pc.name}</h3>
         <p>CPU: ${spec.cpu}</p>
         <p>GPU: ${spec.gpu}</p>
@@ -91,8 +93,98 @@ function showComputerSpec(pc) {
         <p>Мышь: ${spec.mouse}</p>
         <p>Наушники: ${spec.headphones}</p>
     `;
+
+    // Если ПК занят, тянем активное бронирование с бэка
+    if (pc.isActive) {
+        fetch(`http://localhost:8080/api/reservation/active/${pc.id}`, {
+            method: "GET",
+            headers: {
+                "Authorization": "Bearer " + jwt,
+                "Content-Type": "application/json"
+            }
+        })
+            .then(res => res.status === 204 ? null : res.json())
+            .then(activeReservation => {
+                content += `<p style="color:red;">Занят до: ${activeReservation ? activeReservation.endTime : "неизвестно"}</p>`;
+                computerInfo.innerHTML = content;
+            })
+            .catch(err => {
+                console.error(err);
+                content += `<p style="color:red;">Занят до: неизвестно</p>`;
+                computerInfo.innerHTML = content;
+            });
+    } else {
+        content += `
+            <label>Начало: <input type="time" id="startTime"></label><br>
+            <label>Длительность (часы): 
+                <select id="duration">
+                    <option value="1">1 час</option>
+                    <option value="2">2 часа</option>
+                    <option value="3">3 часа</option>
+                    <option value="4">4 часа</option>
+                </select>
+            </label><br>
+            <button id="reserveBtn">Забронировать</button>
+        `;
+        computerInfo.innerHTML = content;
+
+        const reserveBtn = document.getElementById("reserveBtn");
+        if (reserveBtn) {
+            reserveBtn.addEventListener("click", () => {
+                reserveComputer(pc.id);
+            });
+        }
+    }
 }
 
-backBtn.addEventListener("click", () => {
-    window.location.href = "city.html";
-});
+function reserveComputer(computerId) {
+    const startTimeInput = document.getElementById("startTime").value;
+    const duration = parseInt(document.getElementById("duration").value, 10);
+
+    if (!startTimeInput) {
+        alert("Выбери время начала!");
+        return;
+    }
+
+    const today = new Date();
+    const [hours, minutes] = startTimeInput.split(":");
+    today.setHours(hours, minutes, 0, 0);
+
+    const start = today;
+    const end = new Date(start.getTime() + duration * 60 * 60 * 1000);
+
+    function formatDate(date) {
+        const pad = n => n < 10 ? "0" + n : n;
+        return date.getFullYear() + "-" +
+            pad(date.getMonth() + 1) + "-" +
+            pad(date.getDate()) + " " +
+            pad(date.getHours()) + ":" +
+            pad(date.getMinutes());
+    }
+
+    fetch("http://localhost:8080/api/reservation", {
+        method: "POST",
+        headers: {
+            "Authorization": "Bearer " + jwt,
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+            computerId: computerId,
+            startTime: formatDate(start),
+            endTime: formatDate(end)
+        })
+    })
+        .then(res => res.ok ? res.json() : Promise.reject("Ошибка " + res.status))
+        .then(reservation => {
+            alert(`ПК успешно забронирован с ${reservation.startTime} до ${reservation.endTime}`);
+            location.reload();
+        })
+        .catch(err => {
+            console.error(err);
+            alert("Ошибка при бронировании");
+        });
+}
+
+    backBtn.addEventListener("click", () => {
+        window.location.href = "city.html";
+    });
