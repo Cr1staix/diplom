@@ -60,6 +60,4 @@ public class ComputerClub {
     @ToString.Exclude
     private List<Computer> computers;
 
-    @OneToOne
-    private Balance balance;
 }

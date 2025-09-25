@@ -11,6 +11,7 @@
 <include file="/db/changelog/2025-09-09_create_table_city.sql"/>
 <include file="/db/changelog/2025-09-10_alter_table_computer_add_column_active.sql"/>
 <include file="/db/changelog/2025-09-10_create_table_reservation.sql"/>
+<include file="/db/changelog/2025-09-25_alter_table_usersAndBalance.sql"/>
 
 
 

@@ -34,7 +34,4 @@ public class Balance {
 
     @OneToOne
     private User user;
-
-    @OneToOne
-    private ComputerClub computerClub;
 }
