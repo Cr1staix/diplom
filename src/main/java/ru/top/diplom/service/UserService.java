@@ -27,6 +27,7 @@ public class UserService {
     private final UserRepository userRepository;
     private final UserMapper userMapper;
     private final PasswordEncoder passwordEncoder;
+    private final BalanceService balanceService;
 
     public User signUp (User user){
 
@@ -37,6 +38,8 @@ public class UserService {
         user.setRole(UserRole.USER);
         user.setStatus(UserStatus.BRONZE);
         user.setPassword(passwordEncoder.encode(user.getPassword()));
+        balanceService.create(user);
+
 
         return userRepository.save(user);
     }
