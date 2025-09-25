@@ -54,7 +54,6 @@ public class BalanceService {
         balance.setMoney(newBalance);
 
         balanceRepository.save(balance);
-        //TODO УБРАТЬ ИЗ БД В ЮЗЕР поле balance_id, убрать поле из balance club_id!
 
     }
 
