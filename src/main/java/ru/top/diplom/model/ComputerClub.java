@@ -1,5 +1,6 @@
 package ru.top.diplom.model;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
@@ -58,5 +59,9 @@ public class ComputerClub {
     @OneToMany(mappedBy = "computerClub", fetch = FetchType.EAGER)
     @ToString.Exclude
     private List<Computer> computers;
+
+    @OneToMany(mappedBy = "club", cascade = CascadeType.ALL, orphanRemoval = true)
+    @ToString.Exclude
+    private List<ClubPricing> pricing;
 
 }
