@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <title>Личный кабинет</title>
+  <link rel="stylesheet" href="profile.css">
+</head>
+<body>
+<div class="container">
+  <h1>Личный кабинет</h1>
+
+  <div id="userInfo">
+    <p><b>Имя:</b> <span id="userName"></span></p>
+    <p><b>Телефон:</b> <span id="userPhone"></span></p>
+    <p><b>Дата рождения:</b> <span id="userDob"></span></p>
+    <p><b>Баланс:</b> <span id="userBalance"></span> ₽</p>
+  </div>
+
+  <div id="actions">
+    <h2>Действия</h2>
+    <button id="depositBtn">Пополнить баланс</button>
+    <button id="chooseClubBtn">Выбрать клуб</button>
+  </div>
+
+  <div id="depositForm" style="display:none; margin-top:20px;">
+    <h3>Пополнить баланс</h3>
+    <input type="number" id="depositAmount" placeholder="Введите сумму" min="1">
+    <button id="confirmDeposit">Пополнить</button>
+  </div>
+
+  <div id="message"></div>
+
+  <div id="editProfileForm" style="display:none; margin-top:20px;">
+    <h3>Редактировать профиль</h3>
+    <input type="text" id="editFirstName" placeholder="Имя">
+    <input type="text" id="editLastName" placeholder="Фамилия">
+    <input type="date" id="editDateOfBirth" placeholder="Дата рождения">
+    <input type="text" id="editPhone" placeholder="Телефон">
+    <button id="saveProfileBtn">Сохранить</button>
+  </div>
+
+  <button id="editProfileToggleBtn">Редактировать профиль</button>
+</div>
+
+
+<script src="profile.js"></script>
+</body>
+</html>

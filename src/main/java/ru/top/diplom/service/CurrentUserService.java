@@ -36,11 +36,14 @@ public class CurrentUserService {
     @Transactional
     public UserResponseDTO update(CurrentUserUpdateDTO currentUserUpdateDTO) {
 
-        User currentUser = findUser();
 
-        if (userRepository.existsByPhone(currentUserUpdateDTO.getPhone())) {
-            throw new UserAllreadyExistsException(currentUserUpdateDTO.getPhone());
-        }
+
+
+//        if (userRepository.existsByPhone(currentUserUpdateDTO.getPhone())) {
+//            throw new UserAllreadyExistsException(currentUserUpdateDTO.getPhone());
+//        }
+
+        User currentUser = findUser();
 
         userMapper.updateUserFromDTO(currentUserUpdateDTO, currentUser);
 

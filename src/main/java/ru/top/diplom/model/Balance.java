@@ -33,5 +33,6 @@ public class Balance {
     private BigDecimal money = BigDecimal.valueOf(0);
 
     @OneToOne
+    @ToString.Exclude
     private User user;
 }

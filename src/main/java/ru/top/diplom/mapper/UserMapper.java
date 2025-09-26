@@ -2,6 +2,7 @@ package ru.top.diplom.mapper;
 
 import org.mapstruct.BeanMapping;
 import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
 import org.mapstruct.MappingTarget;
 import org.mapstruct.NullValuePropertyMappingStrategy;
 import ru.top.diplom.dto.userDTO.CurrentUserUpdateDTO;
@@ -15,6 +16,7 @@ public interface UserMapper {
 
     User toUser(SignUpRequest signUpRequest);
 
+    @Mapping(source = "balance.money", target = "balance")
     UserResponseDTO toResponseUserDTO(User user);
 
     @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)

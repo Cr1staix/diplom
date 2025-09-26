@@ -159,3 +159,20 @@ select {
 .computer.selected {
     border: 3px solid yellow;
 }
+
+#backToProfileBtn {
+    width: auto; /* не растягиваем на всю ширину */
+    padding: 10px 20px;
+    margin-top: 20px;
+    align-self: center; /* центрируем в контейнере */
+    background-color: #3498db;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+#backToProfileBtn:hover {
+    background-color: #2980b9;
+}
