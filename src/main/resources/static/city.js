@@ -67,3 +67,7 @@ citySelect.addEventListener("change", async () => {
 });
 // Запускаем загрузку городов при открытии страницы
 loadCities();
+
+document.getElementById("backToProfileBtn").addEventListener("click", () => {
+    window.location.href = "profile.html";
+});

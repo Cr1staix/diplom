@@ -36,7 +36,7 @@ loginForm.addEventListener("submit", async (e) => {
             const data = await response.json();
             message.style.color = "green";
             localStorage.setItem("jwt", data.token);
-            window.location.href = "city.html";
+            window.location.href = "profile.html";
         } else {
             message.style.color = "red";
             message.textContent = "Ошибка входа";
@@ -64,7 +64,7 @@ registerForm.addEventListener("submit", async (e) => {
             const data = await response.json();
             message.style.color = "green";
             localStorage.setItem("jwt", data.token);
-            window.location.href = "city.html";
+            window.location.href = "profile.html";
         } else {
             message.style.color = "red";
             message.textContent = "Ошибка регистрации";

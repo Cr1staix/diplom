@@ -8,7 +8,9 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import ru.top.diplom.enums.UserRole;
 import ru.top.diplom.enums.UserStatus;
+import ru.top.diplom.model.Balance;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
@@ -26,6 +28,7 @@ public class UserResponseDTO {
     private String phone;
     private UserRole role;
     private UserStatus status;
+    private BigDecimal balance;
 
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm")
     private LocalDateTime addedAt;

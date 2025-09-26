@@ -17,13 +17,13 @@ public class BalanceService {
     private final BalanceRepository balanceRepository;
     private final CurrentUserService currentUserService;
 
-    public void create(User user){
+    public Balance create(User user){
 
         Balance balance = Balance.builder()
                 .user(user)
                 .build();
 
-        balanceRepository.save(balance);
+        return balanceRepository.save(balance);
     }
 
     @Transactional

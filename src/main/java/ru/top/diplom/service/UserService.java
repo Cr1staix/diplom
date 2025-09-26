@@ -17,6 +17,7 @@ import ru.top.diplom.enums.UserStatus;
 import ru.top.diplom.exception.user.UserAllreadyExistsException;
 import ru.top.diplom.exception.user.UserNotFoundException;
 import ru.top.diplom.mapper.UserMapper;
+import ru.top.diplom.model.Balance;
 import ru.top.diplom.model.User;
 import ru.top.diplom.repository.UserRepository;
 import ru.top.diplom.specification.UserSpecificationCriteriaApi;
@@ -38,7 +39,9 @@ public class UserService {
         user.setRole(UserRole.USER);
         user.setStatus(UserStatus.BRONZE);
         user.setPassword(passwordEncoder.encode(user.getPassword()));
-        balanceService.create(user);
+        userRepository.save(user);
+        Balance balance = balanceService.create(user);
+        user.setBalance(balance);
 
 
         return userRepository.save(user);

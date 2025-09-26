@@ -75,6 +75,7 @@ public class User implements UserDetails {
     private List<ComputerClub> computerClubs;
 
     @OneToOne
+    @ToString.Exclude
     private Balance balance;
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
