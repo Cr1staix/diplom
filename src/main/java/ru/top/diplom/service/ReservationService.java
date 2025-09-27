@@ -13,6 +13,10 @@ import ru.top.diplom.model.User;
 import ru.top.diplom.repository.ComputerRepository;
 import ru.top.diplom.repository.ReservationRepository;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
+import java.time.Duration;
+import java.util.Optional;
 import java.util.UUID;
 
 @Service
@@ -23,6 +27,7 @@ public class ReservationService {
     private final ReservationMapper reservationMapper;
     private final CurrentUserService currentUserService;
     private final ComputerRepository computerRepository;
+    private final  BalanceService balanceService;
 
     @Transactional
     public ReservationResponseDTO create(ReservationCreateDTO reservationCreateDTO){
@@ -32,6 +37,13 @@ public class ReservationService {
 
         Computer computer = computerRepository.findById(reservationCreateDTO.getComputerId())
                 .orElseThrow(() -> new ComputerNotFoundException(reservationCreateDTO.getComputerId()));
+
+        BigDecimal pricePerHour = Optional.ofNullable(computer.getPricePerHour())
+                .orElseThrow(() -> new IllegalStateException("Цена за час не установлена для компьютера " + computer.getId()));
+        long minutes = Duration.between(reservationCreateDTO.getStartTime(), reservationCreateDTO.getEndTime()).toMinutes();
+        BigDecimal hours = BigDecimal.valueOf(minutes).divide(BigDecimal.valueOf(60), 2, RoundingMode.HALF_UP);
+
+        balanceService.withdraw(pricePerHour, hours);
 
         Reservation reservation = reservationMapper.toReservation(reservationCreateDTO);
 
@@ -49,6 +61,4 @@ public class ReservationService {
                 .map(reservationMapper::toResponseDTO)
                 .orElse(null);
     }
-
-
 }

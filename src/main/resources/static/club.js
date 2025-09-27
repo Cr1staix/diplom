@@ -83,6 +83,7 @@ function showComputerSpec(pc) {
         return;
     }
 
+
     let content = `
         <h3>Компьютер ${pc.name}</h3>
         <p>CPU: ${spec.cpu}</p>
@@ -92,6 +93,10 @@ function showComputerSpec(pc) {
         <p>Клавиатура: ${spec.keyboard}</p>
         <p>Мышь: ${spec.mouse}</p>
         <p>Наушники: ${spec.headphones}</p>
+           <h3>Компьютер ${pc.name}</h3>
+    <p><b>Цена за час:</b> ${pc.pricePerHour} ₽</p>
+    
+   
     `;
 
     // Если ПК занят, тянем активное бронирование с бэка
@@ -174,14 +179,19 @@ function reserveComputer(computerId) {
             endTime: formatDate(end)
         })
     })
-        .then(res => res.ok ? res.json() : Promise.reject("Ошибка " + res.status))
+        .then(res => {
+            if (res.ok) return res.json();
+            return res.json().then(err => {
+                throw new Error(err.message);
+            });
+        })
         .then(reservation => {
             alert(`ПК успешно забронирован с ${reservation.startTime} до ${reservation.endTime}`);
             location.reload();
         })
         .catch(err => {
             console.error(err);
-            alert("Ошибка при бронировании");
+            alert(err.message);
         });
 }
 

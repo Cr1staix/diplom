@@ -24,11 +24,11 @@ public class BalanceController {
     }
 
     @PatchMapping("/withdraw")
-    public ResponseEntity<String> withdraw(BigDecimal priceOnHours, Integer timesOnHours) {
+    public ResponseEntity<String> withdraw(BigDecimal priceOnHours, BigDecimal timesOnHours) {
 
         balanceService.withdraw(priceOnHours, timesOnHours);
 
-        return ResponseEntity.ok("Заказ на сумму: " + priceOnHours.multiply(BigDecimal.valueOf(timesOnHours)) + " оплачен");
+        return ResponseEntity.ok("Заказ на сумму: " + priceOnHours.multiply(timesOnHours) + " оплачен");
     }
 
 }
