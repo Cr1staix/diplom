@@ -6,8 +6,10 @@ import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import ru.top.diplom.exception.balance.BalanceTooLowException;
 import ru.top.diplom.exception.city.CityAlreadyExistsException;
 import ru.top.diplom.exception.city.CityNotFoundException;
+import ru.top.diplom.exception.club_pricing.ClubPricingNotFoundException;
 import ru.top.diplom.exception.computer.ComputerNotFoundException;
 import ru.top.diplom.exception.computer_club.ComputerClubAllreadyExistsException;
 import ru.top.diplom.exception.computer_club.ComputerClubNotFoundException;
@@ -182,4 +184,29 @@ public class GlobalExceptionHandler {
         return new ResponseEntity<>(errorResponse, HttpStatus.CONFLICT);
     }
 
+    @ExceptionHandler(BalanceTooLowException.class)
+    public ResponseEntity<ErrorResponse> handeBalanceTooLowException(BalanceTooLowException ex){
+
+        ErrorResponse errorResponse = ErrorResponse.builder()
+                .time(LocalDateTime.now())
+                .status(HttpStatus.BAD_REQUEST.value())
+                .error(HttpStatus.BAD_REQUEST.getReasonPhrase())
+                .message(ex.getMessage())
+                .build();
+
+        return new ResponseEntity<>(errorResponse, HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(ClubPricingNotFoundException.class)
+    public ResponseEntity<ErrorResponse> handeBalanceTooLowException(ClubPricingNotFoundException ex){
+
+        ErrorResponse errorResponse = ErrorResponse.builder()
+                .time(LocalDateTime.now())
+                .status(HttpStatus.BAD_REQUEST.value())
+                .error(HttpStatus.BAD_REQUEST.getReasonPhrase())
+                .message(ex.getMessage())
+                .build();
+
+        return new ResponseEntity<>(errorResponse, HttpStatus.BAD_REQUEST);
+    }
 }

@@ -9,6 +9,7 @@ import lombok.Setter;
 import lombok.ToString;
 
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
@@ -23,6 +24,7 @@ public class ComputerResponseDTO {
     private String name;
     private Boolean isActive;
     private ComputerSpecificationDTO computerSpecificationDTO;
+    private BigDecimal pricePerHour;
 
     @Getter
     @AllArgsConstructor

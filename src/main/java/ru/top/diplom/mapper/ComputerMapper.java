@@ -8,8 +8,11 @@ import org.mapstruct.NullValuePropertyMappingStrategy;
 import ru.top.diplom.dto.computerDTO.ComputerCreateDTO;
 import ru.top.diplom.dto.computerDTO.ComputerResponseDTO;
 import ru.top.diplom.dto.computerDTO.ComputerUpdateDTO;
+import ru.top.diplom.model.ClubPricing;
 import ru.top.diplom.model.Computer;
 import ru.top.diplom.model.ComputerSpecification;
+
+import java.math.BigDecimal;
 
 @Mapper(componentModel = "spring")
 public interface ComputerMapper {
@@ -36,4 +39,5 @@ public interface ComputerMapper {
                 .build();
 
     }
+
 }

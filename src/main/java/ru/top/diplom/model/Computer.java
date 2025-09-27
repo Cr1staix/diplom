@@ -21,6 +21,7 @@ import lombok.ToString;
 import org.hibernate.annotations.CreationTimestamp;
 import ru.top.diplom.enums.ComputerStatus;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.UUID;
@@ -53,6 +54,9 @@ public class Computer {
 
     @CreationTimestamp
     private LocalDateTime updatedAt;
+
+    @Builder.Default
+    private BigDecimal pricePerHour = BigDecimal.ZERO;
 
     @ManyToOne
     @JoinColumn(name = "spec_id", nullable = false)
