@@ -110,7 +110,18 @@ function showComputerSpec(pc) {
         })
             .then(res => res.status === 204 ? null : res.json())
             .then(activeReservation => {
-                content += `<p style="color:red;">Занят до: ${activeReservation ? activeReservation.endTime : "неизвестно"}</p>`;
+                if (activeReservation && activeReservation.endTime) {
+                    const endTime = new Date(activeReservation.endTime.replace(" ", "T"));
+                    const formatted = endTime.toLocaleString("ru-RU", {
+                        hour: "2-digit",
+                        minute: "2-digit",
+                        day: "2-digit",
+                        month: "2-digit"
+                    });
+                    content += `<p style="color:red;">Занят до: ${formatted}</p>`;
+                } else {
+                    content += `<p style="color:red;">Занят до: неизвестно</p>`;
+                }
                 computerInfo.innerHTML = content;
             })
             .catch(err => {
@@ -127,6 +138,14 @@ function showComputerSpec(pc) {
                     <option value="2">2 часа</option>
                     <option value="3">3 часа</option>
                     <option value="4">4 часа</option>
+                    <option value="5">5 часов</option>
+                    <option value="6">6 часов</option>
+                    <option value="7">7 часов</option>
+                    <option value="8">8 часов</option>
+                    <option value="9">9 часов</option>
+                    <option value="10">10 часов</option>
+                    <option value="11">11 часов</option>
+                    <option value="12">12 часов</option>
                 </select>
             </label><br>
             <button id="reserveBtn">Забронировать</button>

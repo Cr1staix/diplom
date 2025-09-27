@@ -11,8 +11,6 @@
 <include file="/db/changelog/2025-09-09_create_table_city.sql"/>
 <include file="/db/changelog/2025-09-10_alter_table_computer_add_column_active.sql"/>
 <include file="/db/changelog/2025-09-10_create_table_reservation.sql"/>
-<include file="/db/changelog/2025-09-25_alter_table_usersAndBalance.sql"/>
-<include file="/db/changelog/2025-09-25_create_table_clubpricing.sql"/>
 <include file="/db/changelog/2025-09-27_alter_table_computer.sql"/>
 
 
@@ -25,5 +23,4 @@
 <include file="/db/changelog/insert-test-data-PC-club.sql"/>
 <include file="/db/changelog/insert-test-data-PC.sql"/>
 <include file="/db/changelog/insert-test-data-user.sql"/>
-<!--<include file="/db/changelog/insert-test-data-Price-For-Club.sql"/>-->
 </databaseChangeLog>
