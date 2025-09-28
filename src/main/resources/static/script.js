@@ -19,6 +19,28 @@ registerTab.addEventListener("click", () => {
     registerTab.classList.add("active");
 });
 
+async function getUserRole() {
+    try {
+        const jwt = localStorage.getItem("jwt");
+        const res = await fetch("http://localhost:8080/api/me", {
+            headers: {
+                "Authorization": "Bearer " + jwt
+            }
+        });
+        if (!res.ok) throw new Error("Ошибка получения пользователя");
+        const user = await res.json();
+
+        if (user.role === "ADMIN") {
+            window.location.href = "admin.html";
+        } else {
+            window.location.href = "profile.html";
+        }
+    } catch (err) {
+        console.error(err);
+        window.location.href = "profile.html";
+    }
+}
+
 // Обработка входа
 loginForm.addEventListener("submit", async (e) => {
     e.preventDefault();
@@ -36,7 +58,7 @@ loginForm.addEventListener("submit", async (e) => {
             const data = await response.json();
             message.style.color = "green";
             localStorage.setItem("jwt", data.token);
-            window.location.href = "profile.html";
+            await getUserRole();
         } else {
             message.style.color = "red";
             message.textContent = "Ошибка входа";

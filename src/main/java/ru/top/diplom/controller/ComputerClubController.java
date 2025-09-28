@@ -6,6 +6,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -29,12 +31,14 @@ public class ComputerClubController {
     private final ComputerClubService computerClubService;
 
     @PostMapping
+    @PreAuthorize("hasAuthority('ADMIN')")
     public ResponseEntity<ComputerClubResponseDTO> create(@RequestBody ComputerClubCreateDTO computerClubCreateDTO) {
 
         return ResponseEntity.ok(computerClubService.create(computerClubCreateDTO));
     }
 
     @GetMapping
+    @PreAuthorize("hasAuthority('ADMIN')")
     public ResponseEntity<Page<ComputerClubResponseDTO>> findAll(@ModelAttribute ComputerClubFilterDTO filter,
                                                                  @PageableDefault(size = 5, sort = "id",
                                                                          direction = Sort.Direction.ASC) Pageable pageable) {
@@ -43,17 +47,21 @@ public class ComputerClubController {
     }
 
     @GetMapping(path = "{id}")
+    @PreAuthorize("hasAuthority('ADMIN')")
     public ResponseEntity<ComputerClubResponseDTO> findById(@PathVariable Long id) {
 
         return ResponseEntity.ok(computerClubService.findById(id));
     }
 
     @PutMapping
+    @PreAuthorize("hasAuthority('ADMIN')")
     public ResponseEntity<ComputerClubResponseDTO> update(@RequestBody ComputerClubUpdateDTO computerClubUpdateDTO) {
 
         return ResponseEntity.ok(computerClubService.update(computerClubUpdateDTO));
     }
 
+    @DeleteMapping
+    @PreAuthorize("hasAuthority('ADMIN')")
     public ResponseEntity<String> delete(@PathVariable Long id) {
 
         computerClubService.delete(id);
