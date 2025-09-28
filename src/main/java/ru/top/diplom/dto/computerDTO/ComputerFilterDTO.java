@@ -1,5 +1,6 @@
 package ru.top.diplom.dto.computerDTO;
 
+import lombok.Builder;
 import lombok.Data;
 import org.springframework.format.annotation.DateTimeFormat;
 import ru.top.diplom.enums.ComputerStatus;
@@ -8,6 +9,7 @@ import java.time.LocalDateTime;
 import java.util.UUID;
 
 @Data
+@Builder
 public class ComputerFilterDTO {
     private String name;
     private ComputerStatus status;
