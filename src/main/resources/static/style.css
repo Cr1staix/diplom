@@ -8,7 +8,7 @@ body {
     padding: 0;
     display: flex;
     justify-content: center;
-    align-items: center; /* центрируем по вертикали */
+    align-items: center;
     min-height: 100vh;
     position: relative;
 }
@@ -161,10 +161,10 @@ select {
 }
 
 #backToProfileBtn {
-    width: auto; /* не растягиваем на всю ширину */
+    width: auto;
     padding: 10px 20px;
     margin-top: 20px;
-    align-self: center; /* центрируем в контейнере */
+    align-self: center;
     background-color: #3498db;
     color: white;
     border: none;

@@ -1,8 +1,8 @@
 const jwt = localStorage.getItem("jwt");
-let currentPage = 0; // текущая страница
-let lastPage = 0;    // всего страниц (прилетает с бэка)
+let currentPage = 0;
+let lastPage = 0;
 
-// ====== Поиск пользователей ======
+
 function loadUsers(page = 0) {
     const firstName = document.getElementById("searchName").value;
     const lastName = document.getElementById("searchLastName")?.value || ""; // если добавим отдельное поле для фамилии
@@ -22,7 +22,7 @@ function loadUsers(page = 0) {
             });
             html += "</ul>";
 
-            // пагинация
+
             html += `<div class="pagination">`;
             if (!data.first) {
                 html += `<button onclick="loadUsers(${currentPage - 1})">⬅ Назад</button>`;
@@ -37,10 +37,10 @@ function loadUsers(page = 0) {
 }
 
 document.getElementById("searchBtn").addEventListener("click", () => {
-    loadUsers(0); // при новом поиске всегда с первой страницы
+    loadUsers(0);
 });
 
-// ====== Создание клуба ======
+
 function loadCities() {
     fetch("http://localhost:8080/api/cities", {
         headers: { "Authorization": "Bearer " + jwt }
@@ -75,7 +75,7 @@ document.getElementById("createClubBtn").addEventListener("click", () => {
         .then(club => alert("Клуб создан: " + club.name));
 });
 
-// ====== Создание компьютера ======
+
 function loadSpecs() {
     fetch("http://localhost:8080/api/pc_spec", {
         headers: { "Authorization": "Bearer " + jwt }
@@ -94,7 +94,7 @@ function loadSpecs() {
 }
 loadSpecs();
 
-// переключение между режимами
+
 document.querySelectorAll("input[name='specMode']").forEach(radio => {
     radio.addEventListener("change", () => {
         const newSpecFields = document.getElementById("newSpecFields");
@@ -111,7 +111,7 @@ document.getElementById("createPcBtn").addEventListener("click", () => {
     const specMode = document.querySelector("input[name='specMode']:checked").value;
 
     if (specMode === "existing") {
-        // вариант 1 — выбираем готовую спецификацию
+
         const specId = document.getElementById("specSelect").value;
 
         fetch("http://localhost:8080/api/pc", {
@@ -126,7 +126,7 @@ document.getElementById("createPcBtn").addEventListener("click", () => {
             .then(pc => alert("Компьютер создан: " + pc.name));
 
     } else {
-        // вариант 2 — создаём новую спецификацию
+
         const cpu = document.getElementById("cpu").value;
         const gpu = document.getElementById("gpu").value;
         const ram = document.getElementById("ram").value;
