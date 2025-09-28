@@ -7,6 +7,7 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import ru.top.diplom.exception.balance.BalanceTooLowException;
+import ru.top.diplom.exception.balance.PriceDoNotInstallForPC;
 import ru.top.diplom.exception.city.CityAlreadyExistsException;
 import ru.top.diplom.exception.city.CityNotFoundException;
 import ru.top.diplom.exception.club_pricing.ClubPricingNotFoundException;
@@ -199,6 +200,19 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(ClubPricingNotFoundException.class)
     public ResponseEntity<ErrorResponse> handeBalanceTooLowException(ClubPricingNotFoundException ex){
+
+        ErrorResponse errorResponse = ErrorResponse.builder()
+                .time(LocalDateTime.now())
+                .status(HttpStatus.BAD_REQUEST.value())
+                .error(HttpStatus.BAD_REQUEST.getReasonPhrase())
+                .message(ex.getMessage())
+                .build();
+
+        return new ResponseEntity<>(errorResponse, HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(PriceDoNotInstallForPC.class)
+    public ResponseEntity<ErrorResponse> handePriceDoNotInstallForPC(PriceDoNotInstallForPC ex){
 
         ErrorResponse errorResponse = ErrorResponse.builder()
                 .time(LocalDateTime.now())
