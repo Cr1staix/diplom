@@ -44,7 +44,7 @@ function showClub(club) {
         pcDiv.classList.add("computer");
         pcDiv.textContent = pc.name;
 
-        // Красим занятые
+
         if (pc.isActive) {
             pcDiv.classList.add("busy");
         }
@@ -99,7 +99,7 @@ function showComputerSpec(pc) {
    
     `;
 
-    // Если ПК занят, тянем активное бронирование с бэка
+
     if (pc.isActive) {
         fetch(`http://localhost:8080/api/reservation/active/${pc.id}`, {
             method: "GET",
@@ -217,3 +217,15 @@ function reserveComputer(computerId) {
     backBtn.addEventListener("click", () => {
         window.location.href = "city.html";
     });
+
+function refreshClub() {
+    if (!clubId) return;
+    fetch(`http://localhost:8080/api/club/${clubId}`, {
+        headers: { "Authorization": "Bearer " + jwt }
+    })
+        .then(res => res.ok ? res.json() : Promise.reject("Ошибка " + res.status))
+        .then(club => showClub(club))
+        .catch(err => console.error("Ошибка обновления клуба:", err));
+}
+
+setInterval(refreshClub, 30000);

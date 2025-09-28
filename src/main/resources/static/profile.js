@@ -10,7 +10,7 @@ const confirmDeposit = document.getElementById("confirmDeposit");
 const depositAmount = document.getElementById("depositAmount");
 const message = document.getElementById("message");
 
-// Загружаем данные о пользователе
+
 async function loadUser() {
     try {
         const response = await fetch("http://localhost:8080/api/me", {
@@ -20,7 +20,6 @@ async function loadUser() {
         if (response.ok) {
             const user = await response.json();
 
-            // имя и фамилия, если они есть
             if (user.firstName || user.lastName) {
                 userName.textContent = `${user.firstName ?? ""} ${user.lastName ?? ""}`.trim();
             } else {
@@ -39,12 +38,11 @@ async function loadUser() {
     }
 }
 
-// Пополнить баланс — показать форму
 depositBtn.addEventListener("click", () => {
     depositForm.style.display = depositForm.style.display === "none" ? "block" : "none";
 });
 
-// Отправка запроса на пополнение
+
 confirmDeposit.addEventListener("click", async () => {
     const amount = depositAmount.value;
     if (!amount || amount <= 0) {
@@ -73,12 +71,11 @@ confirmDeposit.addEventListener("click", async () => {
     }
 });
 
-// Переход к выбору клуба
+
 chooseClubBtn.addEventListener("click", () => {
     window.location.href = "city.html";
 });
 
-// Загружаем данные при входе
 loadUser();
 
 
@@ -91,18 +88,15 @@ const editDateOfBirth = document.getElementById("editDateOfBirth");
 const editPhone = document.getElementById("editPhone");
 const saveProfileBtn = document.getElementById("saveProfileBtn");
 
-// Показ/скрытие формы редактирования
 editProfileToggleBtn.addEventListener("click", () => {
     editProfileForm.style.display = editProfileForm.style.display === "none" ? "block" : "none";
 
-    // Подставляем текущие данные
     editFirstName.value = user.firstName || "";
     editLastName.value = user.lastName || "";
     editDateOfBirth.value = user.dateOfBirth || "";
     editPhone.value = user.phone || "";
 });
 
-// Сохранение изменений
 saveProfileBtn.addEventListener("click", async () => {
     const dto = {
         firstName: editFirstName.value.trim() || null,
@@ -124,8 +118,8 @@ saveProfileBtn.addEventListener("click", async () => {
         if (response.ok) {
             const updatedUser = await response.json();
             alert("Профиль успешно обновлён!");
-            user = updatedUser; // обновляем глобального пользователя
-            loadUser(); // обновляем отображение
+            user = updatedUser;
+            loadUser();
             editProfileForm.style.display = "none";
         } else {
             const err = await response.text();
@@ -135,4 +129,11 @@ saveProfileBtn.addEventListener("click", async () => {
         console.error(err);
         alert("Ошибка сервера");
     }
+});
+
+const logoutBtn = document.getElementById("logoutBtn");
+
+logoutBtn.addEventListener("click", () => {
+    localStorage.removeItem("jwt");
+    window.location.href = "index.html";
 });

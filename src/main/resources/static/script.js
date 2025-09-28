@@ -41,7 +41,7 @@ async function getUserRole() {
     }
 }
 
-// Обработка входа
+
 loginForm.addEventListener("submit", async (e) => {
     e.preventDefault();
     const phone = document.getElementById("loginPhone").value;
@@ -68,7 +68,7 @@ loginForm.addEventListener("submit", async (e) => {
     }
 });
 
-// Обработка регистрации
+
 registerForm.addEventListener("submit", async (e) => {
     e.preventDefault();
     const phone = document.getElementById("registerPhone").value;
