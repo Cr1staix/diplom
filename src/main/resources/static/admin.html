@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Админский кабинет</title>
+    <link rel="stylesheet" href="admin.css">
+</head>
+<body>
+<div class="container">
+    <h1>Кабинет администратора</h1>
+
+    <div>
+        <h3>Поиск пользователей</h3>
+        <input type="text" id="searchName" placeholder="Имя">
+        <input type="text" id="searchLastName" placeholder="Фамилия">
+        <button id="searchBtn">Поиск</button>
+    </div>
+
+    <div id="userResults"></div>
+
+
+    <hr>
+
+    <div>
+        <h2>Создать клуб</h2>
+        <input type="text" id="clubName" placeholder="Название">
+        <select id="citySelect"></select>
+        <input type="text" id="clubAddress" placeholder="Адрес">
+        <button id="createClubBtn">Создать</button>
+    </div>
+
+    <hr>
+
+    <h2>Создать компьютер</h2>
+    <input type="text" id="pcName" placeholder="Имя ПК">
+
+    <label>
+        <input type="radio" name="specMode" value="existing" checked>
+        Выбрать из готовых
+    </label>
+    <select id="specSelect"></select>
+
+    <label>
+        <input type="radio" name="specMode" value="new">
+        Создать новую спецификацию
+    </label>
+    <div id="newSpecFields" style="display:none; margin-top:10px;">
+        <input type="text" id="cpu" placeholder="CPU">
+        <input type="text" id="gpu" placeholder="GPU">
+        <input type="text" id="ram" placeholder="RAM (ГБ)">
+    </div>
+
+    <button id="createPcBtn">Создать</button>
+</div>
+
+<script src="admin.js"></script>
+</body>
+</html>
