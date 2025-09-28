@@ -79,30 +79,38 @@ chooseClubBtn.addEventListener("click", () => {
 loadUser();
 
 
-
 const editProfileToggleBtn = document.getElementById("editProfileToggleBtn");
 const editProfileForm = document.getElementById("editProfileForm");
 const editFirstName = document.getElementById("editFirstName");
 const editLastName = document.getElementById("editLastName");
 const editDateOfBirth = document.getElementById("editDateOfBirth");
-const editPhone = document.getElementById("editPhone");
 const saveProfileBtn = document.getElementById("saveProfileBtn");
 
-editProfileToggleBtn.addEventListener("click", () => {
-    editProfileForm.style.display = editProfileForm.style.display === "none" ? "block" : "none";
 
-    editFirstName.value = user.firstName || "";
-    editLastName.value = user.lastName || "";
-    editDateOfBirth.value = user.dateOfBirth || "";
-    editPhone.value = user.phone || "";
+editProfileToggleBtn.addEventListener("click", async () => {
+    try {
+        const response = await fetch("http://localhost:8080/api/me", {
+            headers: { "Authorization": "Bearer " + jwt }
+        });
+        if (response.ok) {
+            const user = await response.json();
+            editFirstName.value = user.firstName || "";
+            editLastName.value = user.lastName || "";
+            editDateOfBirth.value = user.dateOfBirth || "";
+        }
+    } catch (err) {
+        console.error("Ошибка загрузки профиля для редактирования:", err);
+    }
+
+    editProfileForm.style.display = editProfileForm.style.display === "none" ? "block" : "none";
 });
+
 
 saveProfileBtn.addEventListener("click", async () => {
     const dto = {
         firstName: editFirstName.value.trim() || null,
         lastName: editLastName.value.trim() || null,
-        dateOfBirth: editDateOfBirth.value || null,
-        phone: editPhone.value.trim() || null
+        dateOfBirth: editDateOfBirth.value || null
     };
 
     try {
@@ -116,10 +124,8 @@ saveProfileBtn.addEventListener("click", async () => {
         });
 
         if (response.ok) {
-            const updatedUser = await response.json();
             alert("Профиль успешно обновлён!");
-            user = updatedUser;
-            loadUser();
+            loadUser(); // обновляем отображение
             editProfileForm.style.display = "none";
         } else {
             const err = await response.text();
