@@ -38,7 +38,6 @@ public class ComputerClubController {
     }
 
     @GetMapping
-    @PreAuthorize("hasAuthority('ADMIN')")
     public ResponseEntity<Page<ComputerClubResponseDTO>> findAll(@ModelAttribute ComputerClubFilterDTO filter,
                                                                  @PageableDefault(size = 5, sort = "id",
                                                                          direction = Sort.Direction.ASC) Pageable pageable) {
@@ -47,7 +46,6 @@ public class ComputerClubController {
     }
 
     @GetMapping(path = "{id}")
-    @PreAuthorize("hasAuthority('ADMIN')")
     public ResponseEntity<ComputerClubResponseDTO> findById(@PathVariable Long id) {
 
         return ResponseEntity.ok(computerClubService.findById(id));

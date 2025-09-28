@@ -1,10 +1,12 @@
 package ru.top.diplom.service;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.top.diplom.dto.reservationDTO.ReservationCreateDTO;
 import ru.top.diplom.dto.reservationDTO.ReservationResponseDTO;
+import ru.top.diplom.exception.balance.PriceDoNotInstallForPC;
 import ru.top.diplom.exception.computer.ComputerNotFoundException;
 import ru.top.diplom.mapper.ReservationMapper;
 import ru.top.diplom.model.Computer;
@@ -16,6 +18,7 @@ import ru.top.diplom.repository.ReservationRepository;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.time.Duration;
+import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -39,7 +42,7 @@ public class ReservationService {
                 .orElseThrow(() -> new ComputerNotFoundException(reservationCreateDTO.getComputerId()));
 
         BigDecimal pricePerHour = Optional.ofNullable(computer.getPricePerHour())
-                .orElseThrow(() -> new IllegalStateException("Цена за час не установлена для компьютера " + computer.getId()));
+                .orElseThrow(() -> new PriceDoNotInstallForPC(computer.getId()));
         long minutes = Duration.between(reservationCreateDTO.getStartTime(), reservationCreateDTO.getEndTime()).toMinutes();
         BigDecimal hours = BigDecimal.valueOf(minutes).divide(BigDecimal.valueOf(60), 2, RoundingMode.HALF_UP);
 
@@ -60,5 +63,18 @@ public class ReservationService {
         return reservationRepository.findActiveByComputerId(computerId)
                 .map(reservationMapper::toResponseDTO)
                 .orElse(null);
+    }
+
+    @Scheduled(cron = "0 * * * * *")
+    public void checkActiveReservation(){
+
+        List<Computer> computers = computerRepository.getActiveComputer().stream()
+                .peek(c -> c.setIsActive(false))
+                .toList();
+
+        if(!computers.isEmpty()){
+
+            computerRepository.saveAll(computers);
+        }
     }
 }
